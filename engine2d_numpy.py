@@ -26,23 +26,23 @@ def init_method_data__engine2d_np(test_data, method):
 
 def calc_result__engine2d_np_f1(test_data):
 
-    def calc_figure(figure, figure_points_count, agent_position, figure_in_route, movement):
-
-        agent_position[0:2] = agent_position[0:2] + movement[0:2]
-        agent_position[2] = agent_position[2] + movement[2]
-
-
-        translate_mx33 = vct_offsToTranslateMx_mx33(agent_position[0:2])
-        rotate_mx33 = vct_angleToRotateMx_mx33(agent_position[2])
-
-        for point_i in range(figure_points_count):
-            point_mx31 = vct_pointToMx_mx31(figure[point_i])
-            point_mx31 = np.dot(rotate_mx33, point_mx31)
-            point_mx31 = np.dot(translate_mx33, point_mx31)
-
-            figure_in_route[point_i] = point_mx31[0:2]
-
-        return figure_in_route, agent_position
+    # def calc_figure(figure, figure_points_count, agent_position, figure_in_route, movement):
+    #
+    #     agent_position[0:2] = agent_position[0:2] + movement[0:2]
+    #     agent_position[2] = agent_position[2] + movement[2]
+    #
+    #
+    #     translate_mx33 = vct_offsToTranslateMx_mx33(agent_position[0:2])
+    #     rotate_mx33 = vct_angleToRotateMx_mx33(agent_position[2])
+    #
+    #     for point_i in range(figure_points_count):
+    #         point_mx31 = vct_pointToMx_mx31(figure[point_i])
+    #         point_mx31 = np.dot(rotate_mx33, point_mx31)
+    #         point_mx31 = np.dot(translate_mx33, point_mx31)
+    #
+    #         figure_in_route[point_i] = point_mx31[0:2]
+    #
+    #     return figure_in_route, agent_position
 
 
     data_gene_mode = test_data['data_gene_mode']
@@ -68,18 +68,6 @@ def calc_result__engine2d_np_f1(test_data):
     elif data_gene_mode == 'random_part':
         routes_figures = np.zeros(shape=(routes_len_4_random_part, agents_count, figures_max_points_count, 2), dtype="f4")
 
-
-
-    # # все центры, всех фигур, всех путей, всех агентов
-    # # agents_position[0:2]  - координаты фигнуры
-    # # agents_position[2]    - угол
-    # agents_positions = np.zeros((agents_count, 3), "f4")
-
-    # все фигуры всех путей всех агентов
-    # routes_figures = np.zeros(shape=(routes_len, agents_count, figures_max_points_count, 2), dtype="f4")
-
-
-
     for movement_i in range(routes_len):
 
         for agent_i, agent in enumerate(agents):
@@ -102,28 +90,25 @@ def calc_result__engine2d_np_f1(test_data):
             rotate_mx33 = vct_angleToRotateMx_mx33(agents_angles[agent_i])
 
 
-
             for point_i in range(point_count):
                 point_mx31 = vct_pointToMx_mx31(figure[point_i])
                 point_mx31 = np.dot(rotate_mx33, point_mx31)
                 point_mx31 = np.dot(translate_mx33, point_mx31)
 
-                A = point_mx31[0:2]
-                routes_figures[movement_i][agent_i][point_i] = A
+                if data_gene_mode == 'const_full' or data_gene_mode == 'debug_full' or data_gene_mode == 'random_full':
+                    # все варианты кроме random_part
+                    routes_figures[movement_i][agent_i][point_i] = point_mx31[0:2]
 
-            #
-            #     # action[0], action[1] - перемещение dx, dy
-            #     # action[2] - поворот на угол
-            #
-            # шаблон фигруры
+                elif data_gene_mode == 'random_part':
 
-            # routes_figures[movement_i][agent_i], agents_positions[agent_i] = calc_figure(
-            #         figures[round(agent[3])],               # шаблон фигуры для данного агента
-            #         figures_points_count[round(agent[3])],  # кол-во точек в шаблоне
-            #         agents_positions[agent_i],              # стартовая позиция (x, y, угол)
-            #         routes_figures[movement_i][agent_i],
-            #         movements[agent_i][movement_i],
-            # )
+                    # зписываем каждый 1000й, а также поседний цикл
+                    if movement_i % 1000 == 0:
+                        routes_figures[int(movement_i / 1000)][agent_i][point_i] = point_mx31[0:2]
+
+                    elif movement_i + 1 == routes_len:
+                        # для последнего записываемого перемещения
+                        routes_figures[int(movement_i / 1000) + 1][agent_i][point_i] = point_mx31[0:2]
+                        # print(movement_i, points_new_2D_mxN31[0,0,0])
 
     test_data['routes_figures'] = routes_figures
 
@@ -374,7 +359,6 @@ def calc_result__engine2d_np_f4(test_data):
         if data_gene_mode == 'const_full' or data_gene_mode == 'debug_full' or data_gene_mode == 'random_full':
             # все варианты кроме random_part
             routes_figures[movement_i] = points_new_2D_mxN31[..., 0:2, 0]
-            #print(movement_i, points_new_2D_mxN31[0,0,0])
 
         elif data_gene_mode == 'random_part':
 

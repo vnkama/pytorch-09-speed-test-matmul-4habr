@@ -207,6 +207,10 @@ def runAlgorithmTest(algorithm_test_cfg):
             color = 'b-D'
             label = 'numpy'
 
+        elif key == 'np_f1':
+            color = 'c-D'
+            label = 'numpy_f1'
+
         elif key == 'torch_cpu_f2':
             color = 'r-D'
             label = 'Torch CPU'
