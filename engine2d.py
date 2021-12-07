@@ -12,7 +12,7 @@ GRAPH_X_NAME = 'AGENTS_COUNT'
 
 
 GRAPH_AGENTS_COUNT_CONST = 25000
-GRAPH_ROUTES_LEN_CONST = 2000
+GRAPH_ROUTES_LEN_CONST = 1000
 
 GRAPH_TITLE = 'unknown title'
 GRAPH_X_TITLE = ''
@@ -387,7 +387,7 @@ def getAlgorithmTestCfg():
     libraries = [
         {
             'library_name': 'np',
-            'methods': ['f4'],
+            'methods': ['f4', 'f1'],
         },
         {
             'library_name': 'torch',
@@ -456,11 +456,11 @@ def getAlgorithmTestCfg():
             # {'main_props': random_part, 'shape_props': [70, GRAPH_ROUTES_LEN_CONST]},
             # {'main_props': random_part, 'shape_props': [80, GRAPH_ROUTES_LEN_CONST]},
             # {'main_props': random_part, 'shape_props': [90, GRAPH_ROUTES_LEN_CONST]},
-            # {'main_props': random_part, 'shape_props': [100, GRAPH_ROUTES_LEN_CONST]},
-            # {'main_props': random_part, 'shape_props': [150, GRAPH_ROUTES_LEN_CONST]},
-            # {'main_props': random_part, 'shape_props': [200, GRAPH_ROUTES_LEN_CONST]},
-            # {'main_props': random_part, 'shape_props': [250, GRAPH_ROUTES_LEN_CONST]},
-            # {'main_props': random_part, 'shape_props': [300, GRAPH_ROUTES_LEN_CONST]},
+            {'main_props': random_part, 'shape_props': [100, GRAPH_ROUTES_LEN_CONST]},
+            {'main_props': random_part, 'shape_props': [150, GRAPH_ROUTES_LEN_CONST]},
+            {'main_props': random_part, 'shape_props': [200, GRAPH_ROUTES_LEN_CONST]},
+            {'main_props': random_part, 'shape_props': [250, GRAPH_ROUTES_LEN_CONST]},
+            {'main_props': random_part, 'shape_props': [300, GRAPH_ROUTES_LEN_CONST]},
             # {'main_props': random_part, 'shape_props': [400, GRAPH_ROUTES_LEN_CONST]},
             # {'main_props': random_part, 'shape_props': [500, GRAPH_ROUTES_LEN_CONST]},
             # {'main_props': random_part, 'shape_props': [600, GRAPH_ROUTES_LEN_CONST]},
@@ -501,7 +501,7 @@ def getAlgorithmTestCfg():
             # {'main_props': random_part, 'shape_props': [40000, GRAPH_ROUTES_LEN_CONST]},
             # {'main_props': random_part, 'shape_props': [60000, GRAPH_ROUTES_LEN_CONST]},
             # {'main_props': random_part, 'shape_props': [80000, GRAPH_ROUTES_LEN_CONST]},
-            {'main_props': random_part, 'shape_props': [200000, GRAPH_ROUTES_LEN_CONST]},
+            #{'main_props': random_part, 'shape_props': [200000, GRAPH_ROUTES_LEN_CONST]},
 
             # {'main_props': random_part, 'shape_props': [150000, GRAPH_ROUTES_LEN_CONST]},
             # {'main_props': random_part, 'shape_props': [200000, GRAPH_ROUTES_LEN_CONST]},
